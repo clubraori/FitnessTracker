@@ -50,7 +50,8 @@ To stop the one-click server later:
 ## Using it on your phone
 
 - Publish this repo to GitHub
-- Turn on GitHub Pages for the repo
+- Keep the `main` branch and the included Pages workflow
+- In GitHub, make sure Pages is allowed to deploy from GitHub Actions if prompted
 - Open the Pages URL on your phone
 - Add it to your home screen if you want it to feel more app-like
 
