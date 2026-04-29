@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Blockkeeper is a 3-week fitness tracker for logging workouts, cardio, weigh-ins, steps, waist, and Sunday check-ins."
+    />
+    <meta name="theme-color" content="#ef6f3d" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <title>Blockkeeper Fitness Tracker</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-glow page-glow-one"></div>
+    <div class="page-glow page-glow-two"></div>
+
+    <div class="app-shell">
+      <header class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Three-week recomposition block</p>
+          <h1>Blockkeeper</h1>
+          <p class="hero-text">
+            Lift first, steady-state cardio after, and keep the whole block visible in one place:
+            sets, weights, reps, steps, weigh-ins, waist, and your Sunday photo check-ins.
+          </p>
+          <div class="hero-badges">
+            <span>5 training days</span>
+            <span>40 minute sessions</span>
+            <span>Review every 3 weeks</span>
+          </div>
+        </div>
+
+        <div class="control-panel">
+          <label class="field">
+            <span>Block start Monday</span>
+            <input id="block-start" type="date" />
+          </label>
+
+          <label class="field">
+            <span>Current body weight (kg)</span>
+            <input id="body-weight" type="number" min="40" max="200" step="0.1" />
+          </label>
+
+          <div class="field">
+            <span>Week focus</span>
+            <div id="week-switcher" class="segmented-control"></div>
+          </div>
+
+          <button id="reset-data" class="ghost-button" type="button" data-action="reset-data">Reset local block data</button>
+          <div class="utility-actions">
+            <button class="secondary-button" type="button" data-action="export-data">Export backup</button>
+            <button class="ghost-button" type="button" data-action="trigger-import">Import backup</button>
+          </div>
+          <input id="import-data-file" class="sr-only" type="file" accept=".json,application/json" />
+        </div>
+      </header>
+
+      <section class="overview-bar">
+        <div id="summary-cards" class="summary-grid"></div>
+      </section>
+
+      <nav id="view-switcher" class="view-switcher" aria-label="Tracker sections"></nav>
+
+      <main id="view-root"></main>
+    </div>
+
+    <div id="timer-dock" class="timer-dock"></div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

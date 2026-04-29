@@ -1,0 +1,17 @@
+{
+  "name": "Blockkeeper Fitness Tracker",
+  "short_name": "Blockkeeper",
+  "description": "Track your 3-week fitness block with logged sets, cardio, weigh-ins, steps, waist, and weekly photo check-ins.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f5ecdd",
+  "theme_color": "#ef6f3d",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
