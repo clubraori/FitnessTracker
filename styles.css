@@ -71,6 +71,7 @@ button {
 }
 
 .app-shell {
+  position: relative;
   width: min(1380px, calc(100vw - 32px));
   margin: 24px auto 120px;
 }
@@ -84,8 +85,9 @@ button {
 }
 
 .hero {
+  position: relative;
   display: grid;
-  grid-template-columns: 1.7fr 1fr;
+  grid-template-columns: minmax(0, 1.7fr) minmax(320px, 1fr);
   gap: 24px;
   padding: 32px;
   border: 1px solid rgba(255, 255, 255, 0.55);
@@ -169,10 +171,21 @@ button {
   background: rgba(255, 255, 255, 0.56);
 }
 
-.utility-actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+.utility-actions,
+.action-row,
+.inline-field,
+.timer-actions,
+.sync-actions {
+  display: flex;
+  flex-wrap: wrap;
   gap: 10px;
+}
+
+.utility-actions > *,
+.action-row > *,
+.timer-actions > *,
+.sync-actions > * {
+  flex: 1 1 0;
 }
 
 .field {
@@ -205,7 +218,7 @@ textarea {
 }
 
 textarea {
-  min-height: 108px;
+  min-height: 120px;
   resize: vertical;
 }
 
@@ -221,9 +234,10 @@ textarea:focus {
 .primary-button,
 .secondary-button,
 .icon-button,
-.segmented-control button,
 .view-switcher button,
-.upload-button {
+.upload-button,
+.gallery-tile,
+.mini-gallery-tile {
   border: 1px solid rgba(29, 35, 51, 0.12);
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.8);
@@ -243,9 +257,10 @@ textarea:focus {
 .primary-button:hover,
 .secondary-button:hover,
 .icon-button:hover,
-.segmented-control button:hover,
 .view-switcher button:hover,
-.upload-button:hover {
+.upload-button:hover,
+.gallery-tile:hover,
+.mini-gallery-tile:hover {
   transform: translateY(-1px);
   box-shadow: 0 14px 28px rgba(29, 35, 51, 0.1);
 }
@@ -280,12 +295,11 @@ textarea:focus {
 }
 
 .summary-grid,
-.review-grid,
-.checkin-grid,
-.program-grid,
-.recovery-grid,
-.steps-grid,
-.stats-grid {
+.stats-grid,
+.checkin-form-grid,
+.finisher-grid,
+.outdoor-log-grid,
+.insights-layout {
   display: grid;
   gap: 16px;
 }
@@ -298,13 +312,11 @@ textarea:focus {
 .view-card,
 .exercise-card,
 .session-card,
-.recovery-card,
-.photo-card,
-.review-card,
 .metric-card,
-.steps-card,
-.checkin-card,
-.floating-note {
+.rail-card,
+.history-card,
+.checkin-editor,
+.checkin-gallery-card {
   border-radius: var(--radius-lg);
   border: 1px solid rgba(29, 35, 51, 0.08);
   background: var(--panel);
@@ -326,11 +338,86 @@ textarea:focus {
   letter-spacing: -0.04em;
 }
 
-.summary-detail {
+.summary-detail,
+.metric-detail {
   margin-top: 10px;
   color: var(--ink-soft);
   line-height: 1.55;
   font-size: 0.94rem;
+}
+
+.compact-field {
+  margin-top: 12px;
+}
+
+.compact-field .inline-field input {
+  flex: 1 1 auto;
+}
+
+.weather-panel {
+  padding: 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(28, 138, 115, 0.14);
+  background: linear-gradient(135deg, rgba(28, 138, 115, 0.08), rgba(255, 255, 255, 0.65));
+}
+
+.weather-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.weather-main {
+  margin-top: 6px;
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.sync-panel {
+  display: grid;
+}
+
+.sync-card {
+  padding: 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(38, 65, 95, 0.12);
+  background: linear-gradient(135deg, rgba(38, 65, 95, 0.06), rgba(255, 255, 255, 0.72));
+}
+
+.sync-head,
+.sync-user-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sync-title {
+  margin-top: 6px;
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.sync-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.sync-grid-span {
+  grid-column: 1 / -1;
+}
+
+.sync-actions {
+  margin-top: 14px;
+}
+
+.sync-user-row {
+  margin-top: 14px;
 }
 
 .view-switcher {
@@ -344,23 +431,15 @@ textarea:focus {
   box-shadow: var(--shadow);
 }
 
-.view-switcher button,
-.segmented-control button {
+.view-switcher button {
   padding: 11px 16px;
   font-weight: 700;
 }
 
-.view-switcher button.is-active,
-.segmented-control button.is-active {
+.view-switcher button.is-active {
   background: linear-gradient(135deg, var(--accent-night), #31567d);
   border-color: rgba(38, 65, 95, 0.28);
   color: #fffaf3;
-}
-
-.segmented-control {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
 }
 
 .view-card {
@@ -377,10 +456,10 @@ textarea:focus {
 
 .section-head h2,
 .session-card h3,
-.review-card h3,
-.checkin-card h3,
-.steps-card h3,
-.photo-card h3 {
+.history-card h3,
+.rail-card h3,
+.checkin-editor h3,
+.checkin-gallery-card h3 {
   margin: 0;
   font-family: Georgia, "Times New Roman", serif;
   font-size: 1.65rem;
@@ -393,16 +472,29 @@ textarea:focus {
 .small-copy,
 .session-meta,
 .exercise-note,
-.photo-caption,
 .tiny-copy {
   margin: 8px 0 0;
   line-height: 1.58;
   color: var(--ink-soft);
 }
 
-.program-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+.today-layout,
+.checkin-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(300px, 0.9fr);
+  gap: 18px;
   align-items: start;
+}
+
+.today-main,
+.today-rail {
+  display: grid;
+  gap: 18px;
+}
+
+.today-rail {
+  position: sticky;
+  top: 16px;
 }
 
 .session-card {
@@ -410,11 +502,23 @@ textarea:focus {
   background: linear-gradient(180deg, rgba(255, 250, 241, 0.95), rgba(250, 244, 234, 0.92));
 }
 
-.session-header {
+.session-card-large {
+  padding: 22px;
+}
+
+.session-header,
+.exercise-header,
+.history-header,
+.history-exercise-row,
+.mini-history-row,
+.suggestion-card {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 16px;
+  gap: 14px;
+}
+
+.session-header {
   margin-bottom: 18px;
 }
 
@@ -436,7 +540,8 @@ textarea:focus {
   text-transform: uppercase;
 }
 
-.session-status {
+.session-status,
+.history-status {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -469,17 +574,51 @@ textarea:focus {
   color: var(--accent-night);
 }
 
-.progress-track {
+.progress-track,
+.bar-track,
+.timer-track {
   height: 8px;
   border-radius: 999px;
   background: rgba(38, 65, 95, 0.08);
   overflow: hidden;
 }
 
-.progress-fill {
+.progress-fill,
+.bar-track span,
+.timer-track span {
+  display: block;
   height: 100%;
   border-radius: inherit;
   background: linear-gradient(90deg, var(--accent), #ff9d73);
+}
+
+.focus-strip,
+.reason-list,
+.history-exercise-list,
+.mini-history,
+.suggestion-stack,
+.bar-stack,
+.gallery-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.focus-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.focus-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(38, 65, 95, 0.08);
+  color: var(--accent-night);
+  font-size: 0.82rem;
+  font-weight: 700;
 }
 
 .exercise-stack {
@@ -487,37 +626,27 @@ textarea:focus {
   gap: 14px;
 }
 
-.exercise-card {
-  padding: 16px;
+.exercise-card,
+.metric-card,
+.rail-card,
+.history-card,
+.checkin-editor,
+.checkin-gallery-card {
+  padding: 18px;
   background: rgba(255, 255, 255, 0.66);
 }
 
-.exercise-header,
-.cardio-panel,
-.review-line,
-.steps-row,
-.checkin-row,
-.photo-head,
-.metric-line {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-}
-
 .exercise-header {
-  align-items: flex-start;
   margin-bottom: 12px;
 }
 
-.exercise-header h4 {
+.exercise-header h4,
+.finisher-card h4 {
   margin: 0;
   font-size: 1.05rem;
 }
 
-.rest-chip,
-.source-chip,
-.goal-chip {
+.rest-chip {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -576,117 +705,88 @@ textarea:focus {
   accent-color: var(--accent-cool);
 }
 
-.cardio-panel {
-  margin-top: 14px;
-  padding: 14px;
+.finisher-card {
+  margin-top: 16px;
+  padding: 16px;
   border-radius: var(--radius-md);
   background: rgba(28, 138, 115, 0.06);
   border: 1px solid rgba(28, 138, 115, 0.12);
-  align-items: end;
 }
 
-.cardio-panel .field {
-  min-width: 112px;
+.finisher-grid,
+.outdoor-log-grid,
+.checkin-form-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 16px;
+}
+
+.outdoor-log-grid .metric-card {
+  grid-column: 1 / -1;
 }
 
 .notes-field {
-  margin-top: 14px;
-}
-
-.recovery-grid,
-.review-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
   margin-top: 16px;
 }
 
-.recovery-card,
-.review-card,
-.checkin-card,
-.photo-card,
-.steps-card {
-  padding: 18px;
+.rail-card {
+  background: linear-gradient(180deg, rgba(255, 253, 249, 0.95), rgba(249, 244, 236, 0.92));
 }
 
-.recovery-card {
-  background: linear-gradient(180deg, rgba(243, 248, 247, 0.92), rgba(248, 251, 250, 0.88));
-}
-
-.checkin-grid {
-  grid-template-columns: 1.2fr 1fr;
-}
-
-.log-form {
-  display: grid;
-  grid-template-columns: 1fr 1fr auto;
-  gap: 12px;
-  margin: 16px 0;
-}
-
-.weighin-list,
-.review-list {
-  display: grid;
-  gap: 10px;
-}
-
-.weighin-row,
-.review-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
+.reason-chip {
   padding: 12px 14px;
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(38, 65, 95, 0.06);
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+.suggestion-card {
+  padding: 14px;
+  border-radius: 16px;
   border: 1px solid rgba(29, 35, 51, 0.08);
+  background: rgba(255, 255, 255, 0.72);
 }
 
-.steps-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  margin-top: 16px;
+.mini-history-row {
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(29, 35, 51, 0.08);
+  background: rgba(255, 255, 255, 0.7);
 }
 
-.steps-card {
-  background: rgba(255, 255, 255, 0.76);
+.history-stack {
+  display: grid;
+  gap: 16px;
 }
 
-.steps-row {
+.history-card {
+  background: linear-gradient(180deg, rgba(255, 250, 241, 0.95), rgba(251, 246, 238, 0.92));
+}
+
+.history-header {
+  margin-bottom: 14px;
+}
+
+.history-exercise-row {
   padding: 10px 0;
   border-bottom: 1px solid rgba(29, 35, 51, 0.08);
 }
 
-.steps-row:last-child {
+.history-exercise-row:last-child {
   border-bottom: none;
-}
-
-.steps-row label {
-  display: inline-flex;
-  flex-direction: column;
-  gap: 6px;
-  min-width: 148px;
-}
-
-.steps-row input {
-  width: 140px;
-}
-
-.goal-hit {
-  color: var(--accent-cool);
-  font-weight: 800;
-}
-
-.goal-miss {
-  color: var(--accent-deep);
-  font-weight: 800;
-}
-
-.photo-card {
-  background: linear-gradient(180deg, rgba(255, 248, 240, 0.92), rgba(249, 240, 231, 0.92));
 }
 
 .photo-upload {
   display: grid;
   gap: 12px;
-  margin-top: 16px;
+  margin-top: 18px;
+}
+
+.photo-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
 }
 
 .photo-upload input[type="file"] {
@@ -701,27 +801,63 @@ textarea:focus {
   background:
     linear-gradient(135deg, rgba(38, 65, 95, 0.08), rgba(239, 111, 61, 0.08)),
     rgba(255, 255, 255, 0.7);
-  min-height: 260px;
+  min-height: 280px;
   display: grid;
   place-items: center;
 }
 
-.photo-preview img {
+.photo-preview img,
+.gallery-tile img,
+.mini-gallery-tile img {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
   object-fit: cover;
 }
 
-.photo-empty {
-  padding: 32px;
+.photo-empty,
+.gallery-placeholder {
+  display: grid;
+  place-items: center;
+  min-height: 160px;
+  padding: 24px;
   text-align: center;
-  line-height: 1.7;
+  line-height: 1.6;
   color: var(--ink-soft);
 }
 
-.review-grid {
-  margin-top: 18px;
+.gallery-grid,
+.mini-gallery {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.gallery-tile,
+.mini-gallery-tile {
+  padding: 0;
+  overflow: hidden;
+  text-align: left;
+}
+
+.gallery-tile {
+  display: grid;
+  background: rgba(255, 255, 255, 0.84);
+}
+
+.gallery-tile img,
+.gallery-placeholder {
+  aspect-ratio: 4 / 5;
+}
+
+.gallery-meta {
+  display: grid;
+  gap: 4px;
+  padding: 12px 14px 14px;
+}
+
+.gallery-meta span,
+.mini-gallery-tile span {
+  color: var(--ink-soft);
+  font-size: 0.88rem;
 }
 
 .stats-grid {
@@ -729,38 +865,43 @@ textarea:focus {
   margin-top: 16px;
 }
 
-.metric-card {
-  padding: 16px;
+.insights-layout {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 18px;
 }
 
-.metric-detail {
-  margin-top: 10px;
-  color: var(--ink-soft);
-  line-height: 1.55;
+.bar-row {
+  display: grid;
+  grid-template-columns: minmax(100px, 140px) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
 }
 
-.review-table {
-  width: 100%;
-  margin-top: 16px;
-  border-collapse: collapse;
+.bar-label,
+.bar-value {
+  font-size: 0.92rem;
+  font-weight: 700;
 }
 
-.review-table th,
-.review-table td {
-  padding: 12px 10px;
-  border-bottom: 1px solid rgba(29, 35, 51, 0.08);
-  text-align: left;
+.mini-gallery {
+  display: grid;
+  gap: 12px;
 }
 
-.review-table th {
-  font-size: 0.8rem;
-  letter-spacing: 0.04em;
-  color: var(--ink-soft);
-  text-transform: uppercase;
+.mini-gallery-tile {
+  display: grid;
+  gap: 8px;
+  padding: 0 0 12px;
+  background: rgba(255, 255, 255, 0.84);
 }
 
-.review-table tr:last-child td {
-  border-bottom: none;
+.mini-gallery-tile img,
+.mini-gallery-tile .gallery-placeholder {
+  aspect-ratio: 4 / 4.2;
+}
+
+.mini-gallery-tile span {
+  padding: 0 12px;
 }
 
 .timer-dock {
@@ -775,6 +916,17 @@ textarea:focus {
   box-shadow: 0 26px 70px rgba(13, 16, 24, 0.32);
   color: #fff9f0;
   z-index: 20;
+}
+
+.timer-dock.is-hidden {
+  display: none;
+}
+
+.timer-dock.is-collapsed {
+  width: auto;
+  max-width: min(280px, calc(100vw - 20px));
+  padding: 12px;
+  border-radius: 18px;
 }
 
 .timer-top {
@@ -802,29 +954,25 @@ textarea:focus {
   color: rgba(255, 249, 240, 0.72);
 }
 
+.timer-minimise {
+  min-width: 0;
+  white-space: nowrap;
+}
+
 .timer-track {
   margin-top: 16px;
-  height: 8px;
-  border-radius: 999px;
   background: rgba(255, 255, 255, 0.12);
-  overflow: hidden;
 }
 
 .timer-track span {
-  display: block;
-  height: 100%;
-  border-radius: inherit;
   background: linear-gradient(90deg, #ff9f74, #ffd17f);
 }
 
 .timer-actions {
-  display: flex;
-  gap: 10px;
   margin-top: 16px;
 }
 
 .timer-actions button {
-  flex: 1;
   padding: 10px 12px;
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -837,10 +985,54 @@ textarea:focus {
   background: rgba(255, 255, 255, 0.14);
 }
 
+.timer-compact {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.timer-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff9f0;
+}
+
+.timer-pill-label {
+  max-width: 96px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: rgba(255, 249, 240, 0.72);
+}
+
+.timer-mini-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.timer-mini-controls button {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff9f0;
+  font-weight: 700;
+}
+
+.timer-mini-controls button:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
 .empty-state {
   padding: 18px;
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.5);
   line-height: 1.65;
 }
 
@@ -859,15 +1051,19 @@ textarea:focus {
 @media (max-width: 1180px) {
   .hero,
   .summary-grid,
-  .program-grid,
-  .checkin-grid,
-  .steps-grid,
-  .stats-grid,
-  .review-grid {
+  .today-layout,
+  .checkin-layout,
+  .insights-layout,
+  .stats-grid {
     grid-template-columns: 1fr;
   }
 
-  .session-status {
+  .today-rail {
+    position: static;
+  }
+
+  .session-status,
+  .history-status {
     min-width: 0;
     text-align: left;
   }
@@ -885,7 +1081,12 @@ textarea:focus {
 
   .hero,
   .view-card,
-  .overview-bar {
+  .overview-bar,
+  .session-card,
+  .checkin-editor,
+  .checkin-gallery-card,
+  .history-card,
+  .rail-card {
     padding: 18px;
   }
 
@@ -903,22 +1104,33 @@ textarea:focus {
     flex: 1 1 140px;
   }
 
-  .log-form {
+  .summary-grid,
+  .stats-grid,
+  .sync-grid,
+  .checkin-form-grid,
+  .finisher-grid,
+  .outdoor-log-grid,
+  .gallery-grid,
+  .mini-gallery {
     grid-template-columns: 1fr;
   }
 
-  .utility-actions {
-    grid-template-columns: 1fr;
-  }
-
-  .cardio-panel,
+  .weather-summary,
+  .sync-head,
+  .sync-user-row,
+  .section-head,
   .session-header,
   .exercise-header,
-  .steps-row,
-  .review-line,
+  .history-header,
+  .mini-history-row,
+  .suggestion-card,
   .photo-head {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .set-table {
+    min-width: 560px;
   }
 
   .timer-dock {
@@ -926,5 +1138,35 @@ textarea:focus {
     left: 10px;
     width: auto;
     bottom: 10px;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding: 20px;
+  }
+
+  .overview-bar,
+  .view-card {
+    padding: 16px;
+  }
+
+  .hero-badges,
+  .utility-actions,
+  .action-row,
+  .inline-field,
+  .timer-actions,
+  .sync-actions,
+  .timer-compact {
+    flex-direction: column;
+  }
+
+  .bar-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .summary-card {
+    min-height: 0;
   }
 }

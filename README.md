@@ -1,19 +1,19 @@
-# Blockkeeper Fitness Tracker
+# Blockkeeper Daily
 
-A self-contained workout tracker for your 3-week, 5-day recomp block.
+A today-first fitness tracker that generates one adaptive workout per day, logs your sets, and can optionally sync across devices.
 
 ## What it does
 
-- Preloads all 5 weekly training sessions for 3 weeks
-- Prefills target sets, reps, and starter load suggestions
-- Lets you log target and actual weight/reps per set
-- Reacts to changes so later weeks update from what you entered earlier
+- Opens on a single “what am I doing today?” home screen
+- Generates a fresh workout based on what you actually trained recently
+- Keeps set, rep, weight, cardio, weigh-in, and weekly photo check-in logging
+- Lets you swap today’s lifting plan for an outdoor detour like a run or social sport
 - Starts a rest timer when you check off a set
-- Tracks cardio minutes, weigh-ins, steps, waist, and weekly energy
-- Includes a Sunday photo check-in for each week
-- Saves everything locally in the browser/device you use
+- Keeps the timer hidden until it is active, and collapses it into a smaller control on phones
+- Saves everything locally in the browser by default
 - Supports export and import backups
-- Is ready to host as a phone-friendly static web app on GitHub Pages
+- Supports optional Supabase sync with email magic-link sign-in for cross-device use
+- Works as a static web app on GitHub Pages
 
 ## Files
 
@@ -23,6 +23,8 @@ A self-contained workout tracker for your 3-week, 5-day recomp block.
 - `manifest.webmanifest`
 - `sw.js`
 - `icon.svg`
+- `SUPABASE_SETUP.md`
+- `supabase_setup.sql`
 
 ## How to open it
 
@@ -54,16 +56,18 @@ To stop the one-click server later:
 - In GitHub, make sure Pages is allowed to deploy from GitHub Actions if prompted
 - Open the Pages URL on your phone
 - Add it to your home screen if you want it to feel more app-like
+- If you want the same data on phone and laptop, enable the optional Supabase sync
 
-## Storage notes
+## Storage modes
 
-- Workout data is stored in the browser on the device you use
-- That means your phone will remember its own data, but it will not automatically sync with another device
-- Use `Export backup` and `Import backup` if you want to move your data between devices
+- Local-only mode works immediately and stores everything in the browser on the device you use
+- Cloud sync is optional and uses Supabase plus email magic-link sign-in
+- If you stay local-only, use `Export backup` and `Import backup` to move your data between devices
+- If you want cloud sync, follow [SUPABASE_SETUP.md](SUPABASE_SETUP.md) and run [supabase_setup.sql](supabase_setup.sql)
 
 ## Notes
 
-- The week 1 load suggestions are just a starting estimate based on your body weight and exercise type.
-- If a suggested set is off, change it once and the later weeks will adapt.
+- The workout generator only learns from sessions you actually logged, not just plans that were generated.
+- If a suggested set is off, change it and the generator will build from that next time the same movement comes up.
 - Photos are compressed before saving so they fit better on mobile browsers.
 - If your browser blocks local storage for local files, use `start_tracker.command` instead of opening the file directly.

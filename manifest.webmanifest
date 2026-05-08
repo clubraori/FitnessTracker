@@ -1,7 +1,7 @@
 {
-  "name": "Blockkeeper Fitness Tracker",
-  "short_name": "Blockkeeper",
-  "description": "Track your 3-week fitness block with logged sets, cardio, weigh-ins, steps, waist, and weekly photo check-ins.",
+  "name": "Blockkeeper Daily",
+  "short_name": "BK Daily",
+  "description": "A today-first adaptive fitness tracker that generates the day's workout, logs your sets, and keeps weekly photo check-ins.",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#f5ecdd",

@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Blockkeeper is a 3-week fitness tracker for logging workouts, cardio, weigh-ins, steps, waist, and Sunday check-ins."
+      content="Blockkeeper Daily generates a fresh workout each day, adapts to your recent training, and keeps your check-ins and progress in one place."
     />
     <meta name="theme-color" content="#ef6f3d" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <title>Blockkeeper Fitness Tracker</title>
+    <title>Blockkeeper Daily</title>
     <link rel="manifest" href="manifest.webmanifest" />
     <link rel="icon" href="icon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="icon.svg" />
@@ -23,40 +23,43 @@
     <div class="app-shell">
       <header class="hero">
         <div class="hero-copy">
-          <p class="eyebrow">Three-week recomposition block</p>
-          <h1>Blockkeeper</h1>
+          <p class="eyebrow">Adaptive daily training</p>
+          <h1>Blockkeeper Daily</h1>
           <p class="hero-text">
-            Lift first, steady-state cardio after, and keep the whole block visible in one place:
-            sets, weights, reps, steps, weigh-ins, waist, and your Sunday photo check-ins.
+            Open the app and it tells you what to do today. Strength, conditioning, or an outdoor detour,
+            generated from what you actually trained recently instead of making you scroll a static block.
           </p>
           <div class="hero-badges">
-            <span>5 training days</span>
-            <span>40 minute sessions</span>
-            <span>Review every 3 weeks</span>
+            <span>Today-first home screen</span>
+            <span>History-aware workout generation</span>
+            <span>Check-ins and photo gallery</span>
           </div>
         </div>
 
         <div class="control-panel">
           <label class="field">
-            <span>Block start Monday</span>
-            <input id="block-start" type="date" />
-          </label>
-
-          <label class="field">
             <span>Current body weight (kg)</span>
             <input id="body-weight" type="number" min="40" max="200" step="0.1" />
           </label>
 
-          <div class="field">
-            <span>Week focus</span>
-            <div id="week-switcher" class="segmented-control"></div>
-          </div>
+          <label class="field">
+            <span>Target session length</span>
+            <select id="session-length">
+              <option value="35">35 minutes</option>
+              <option value="40">40 minutes</option>
+              <option value="45">45 minutes</option>
+            </select>
+          </label>
 
-          <button id="reset-data" class="ghost-button" type="button" data-action="reset-data">Reset local block data</button>
+          <div id="weather-panel" class="weather-panel"></div>
+          <div id="sync-panel" class="sync-panel"></div>
+
           <div class="utility-actions">
             <button class="secondary-button" type="button" data-action="export-data">Export backup</button>
             <button class="ghost-button" type="button" data-action="trigger-import">Import backup</button>
           </div>
+
+          <button class="ghost-button" type="button" data-action="reset-data">Reset local tracker data</button>
           <input id="import-data-file" class="sr-only" type="file" accept=".json,application/json" />
         </div>
       </header>
@@ -72,6 +75,7 @@
 
     <div id="timer-dock" class="timer-dock"></div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="app.js"></script>
   </body>
 </html>
